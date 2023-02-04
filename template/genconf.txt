@@ -1,0 +1,73 @@
+{% extends "Layout.txt" %}
+
+
+{% block VPN %}{% if "VPN" in R.RP -%}
+!
+!
+!
+!
+!--- VPN1 commands.
+
+vrf definition VPN{{ R.VPN["VPN_id"] }}
+ rd {{ R.VPN["RD"] }}
+ route-target both {{ R.VPN["RT"] }}
+ address-family ipv4
+ exit-address-family{% else %}!{% endif %}
+{% endblock %}
+
+
+
+
+{% block interfaces %}{% for intf in R.itfs -%}
+interface {{ intf.name }}
+{% if intf.VRF -%}vrf forwarding VPN{{ intf["VRF"] }}
+ ip address {{ intf.ip }} {{ intf.mask }}
+ {% if intf.OSPF != {} -%}ip ospf {{ intf.OSPF["PID"] }} area {{ intf.OSPF["area"] }}
+ no shutdown{% else %}no shutdown{% endif %}
+!{% else %} ip address {{ intf.ip }} {{ intf.mask }}
+ {% if intf.OSPF != {} -%}ip ospf {{ intf.OSPF["PID"] }} area {{ intf.OSPF["area"] }}
+ no shutdown{% else %}no shutdown{% endif %}
+!{% endif %}
+{% endfor %}{% endblock %}
+
+
+
+
+{% block OSPF %}{% if "OSPF" in R.RP -%}
+router ospf {% for intf in R.itfs -%}{% if intf.link == "L0" -%}{{ intf.OSPF["PID"] }}
+ router-id {{ intf.ip }}
+ mpls ldp autoconfig{% endif %}{% endfor %}{% else %}!{% endif %}
+!{% endblock %}
+
+
+
+{% block BGP %}{% if "BGP" in R.RP -%}
+router bgp {{ R.BGP["BGP_AS"] }}
+ {% if R.cl=="PE" -%}
+{% for addr in R.BGP["neighbor"] -%}
+ neighbor {{ addr[0] }} remote-as {{ addr[1] }}
+ neighbor {{ addr[0] }} update-source Loopback0{% endfor %}
+ no auto-summary{% elif R.cl=="CE" %}bgp log-neighbor-changes
+ redistribute connected
+ {% for addr in R.BGP["neighbor"] -%}
+ neighbor {{ addr[0] }} remote-as {{ addr[1] }}{% endfor %}{% endif %}
+!{% else %}!{% endif %}{% endblock %}
+
+
+
+{% block vpnv4 %}{% if R.cl=="PE" -%}address-family vpnv4
+ {% for addr in R.BGP["neighbor"] -%}
+ neighbor {{ addr[0] }} activate{% endfor %}
+!{% else %}!{% endif %}{% endblock %}
+
+
+
+
+{% block VRF %}{% if R.cl=="PE" -%}address-family ipv4 vrf VPN{{ R.VPN["VPN_id"] }}
+ {% for addr in R.VPN["neighbor"] -%}
+ neighbor {{ addr[0] }} remote-as {{ addr[1] }}
+ neighbor {{ addr[0] }} activate{% endfor %}
+ exit-address-family
+!{% else %}!{% endif %}{% endblock %}
+
+

@@ -1,0 +1,314 @@
+{
+    "Links": {
+        "L0": {
+            "R1": "loopback0",
+            "R2": "loopback0",
+            "R3": "loopback0",
+            "R4": "loopback0",
+            "R5": "loopback0"
+        },
+        "L1": {
+            "R1": "f0/0",
+            "R2": "f0/0"
+        },
+        "L2": {
+            "R2": "f2/0",
+            "R3": "f2/0"
+        },
+        "L3": {
+            "R3": "f2/1",
+            "R4": "f2/0"
+        },
+        "L4": {
+            "R4": "f0/0",
+            "R5": "f0/0"
+        }
+    },
+    "Routers": {
+        "R1": {
+            "name": "R1",
+            "class": "CE/PE/P?",
+            "RP": [
+                "BGP?",
+                "OSPF?",
+                "VPN?"
+            ],
+            "VPN": {
+                "VPN_id": "?",
+                "RD": "?",
+                "RT": "?",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "BGP": {
+                "BGP_AS": "as(int)",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "ints": [
+                {
+                    "link": "L0",
+                    "IP": "1.1.1.1",
+                    "mask_l": 32,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L1",
+                    "IP": "192.186.1.1",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                }
+            ]
+        },
+        "R2": {
+            "name": "R2",
+            "class": "CE/PE/P?",
+            "RP": [
+                "BGP?",
+                "OSPF?",
+                "VPN?"
+            ],
+            "VPN": {
+                "VPN_id": "?",
+                "RD": "?",
+                "RT": "?",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "BGP": {
+                "BGP_AS": "as(int)",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "ints": [
+                {
+                    "link": "L0",
+                    "IP": "2.2.2.2",
+                    "mask_l": 32,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L1",
+                    "IP": "192.186.1.2",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L2",
+                    "IP": "192.186.2.1",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                }
+            ]
+        },
+        "R3": {
+            "name": "R3",
+            "class": "CE/PE/P?",
+            "RP": [
+                "BGP?",
+                "OSPF?",
+                "VPN?"
+            ],
+            "VPN": {
+                "VPN_id": "?",
+                "RD": "?",
+                "RT": "?",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "BGP": {
+                "BGP_AS": "as(int)",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "ints": [
+                {
+                    "link": "L0",
+                    "IP": "3.3.3.3",
+                    "mask_l": 32,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L2",
+                    "IP": "192.186.2.2",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L3",
+                    "IP": "192.186.3.1",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                }
+            ]
+        },
+        "R4": {
+            "name": "R4",
+            "class": "CE/PE/P?",
+            "RP": [
+                "BGP?",
+                "OSPF?",
+                "VPN?"
+            ],
+            "VPN": {
+                "VPN_id": "?",
+                "RD": "?",
+                "RT": "?",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "BGP": {
+                "BGP_AS": "as(int)",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "ints": [
+                {
+                    "link": "L0",
+                    "IP": "4.4.4.4",
+                    "mask_l": 32,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L3",
+                    "IP": "192.186.3.2",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L4",
+                    "IP": "192.186.4.1",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                }
+            ]
+        },
+        "R5": {
+            "name": "R5",
+            "class": "CE/PE/P?",
+            "RP": [
+                "BGP?",
+                "OSPF?",
+                "VPN?"
+            ],
+            "VPN": {
+                "VPN_id": "?",
+                "RD": "?",
+                "RT": "?",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "BGP": {
+                "BGP_AS": "as(int)",
+                "neighbor": [
+                    [
+                        "ip?",
+                        "remote_as(int)"
+                    ]
+                ]
+            },
+            "ints": [
+                {
+                    "link": "L0",
+                    "IP": "5.5.5.5",
+                    "mask_l": 32,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                },
+                {
+                    "link": "L4",
+                    "IP": "192.186.4.2",
+                    "mask_l": 24,
+                    "VRF": "vrf_id? (int)",
+                    "OSPF": {
+                        "PID": "process_id (int)",
+                        "area": "area_ (int)"
+                    }
+                }
+            ]
+        }
+    }
+}
