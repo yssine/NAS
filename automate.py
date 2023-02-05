@@ -15,8 +15,10 @@ for node in raw['topology']['nodes']:
     conf_file=glob.glob(path+'/*startup*',recursive=True)[0]
     if platform.uname().system=='Windows':
         conf_file=conf_file.split('\\')
+        os.system(f"python prep.py {GNSFILE}")
     else:
         conf_file=conf_file.split('/')
+        os.system(f"python3 prep.py {GNSFILE}")
     conf_file=conf_file[-1]
     # print(conf_file)
     hosts.append(node['name'])
@@ -92,4 +94,4 @@ def auto(RX):
     # s.write(conf)
 
 
-auto("R4")
+auto("R7")

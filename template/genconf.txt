@@ -12,8 +12,8 @@
  rd {{ vpn["RD"] }}
  route-target both {{ vpn["RT"] }}
  address-family ipv4
- exit-address-family{% endfor %}
-!{% else %}!{% endif %}
+ exit-address-family
+{% endfor %}!{% else %}!{% endif %}
 {% endblock %}
 
 
@@ -23,11 +23,11 @@
 interface {{ intf.name }}
 {% if intf.VRF -%}vrf forwarding VPN{{ intf["VRF"] }}
  ip address {{ intf.ip }} {{ intf.mask }}
- ip ospf {{ R.OSPF["PID"] }} area {{ R.OSPF["area"] }}
- no shutdown
+ {% if "OSPF" in R.RP -%}ip ospf {{ R.OSPF["PID"] }} area {{ R.OSPF["area"] }}
+ no shutdown{% else %}no shutdown{% endif %}
 !{% else %} ip address {{ intf.ip }} {{ intf.mask }}
- ip ospf {{ R.OSPF["PID"] }} area {{ R.OSPF["area"] }}
- no shutdown
+ {% if "OSPF" in R.RP -%}ip ospf {{ R.OSPF["PID"] }} area {{ R.OSPF["area"] }}
+ no shutdown{% else %}no shutdown{% endif %}
 !{% endif %}
 {% endfor %}{% endblock %}
 
@@ -69,6 +69,7 @@ router bgp {{ R.BGP["BGP_AS"] }}
  neighbor {{ addr[0] }} remote-as {{ addr[1] }}
  neighbor {{ addr[0] }} activate{% endfor %}
  exit-address-family
-!{% else %}!{% endif %}{% endfor %}{% endblock %}
+!
+{% else %}!{% endif %}{% endfor %}{% endblock %}
 
 

@@ -219,7 +219,7 @@ def generate():
                 input["Routers"][r.name]["BGP"]["BGP_AS"]=bgp()["CEp"][r.name]["BGP_AS"]
                 input["Routers"][r.name]["BGP"]["neighbor"]=[]
                 # print(bgp()["CEp"][r.name]["neighbor"][0][0])
-                input["Routers"][r.name]["BGP"]["neighbor"]=bgp()["CEp"][r.name]["neighbor"][0][0]
+                input["Routers"][r.name]["BGP"]["neighbor"].append(bgp()["CEp"][r.name]["neighbor"][0][0])
         if "OSPF" in Routing_Protocols[cl(r.name)]:
                 f=open("descriptor.json")
                 d=json.load(f)
