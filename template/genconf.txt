@@ -8,11 +8,12 @@
 !
 !--- VPN1 commands.
 
-vrf definition VPN{{ R.VPN["VPN_id"] }}
- rd {{ R.VPN["RD"] }}
- route-target both {{ R.VPN["RT"] }}
+{% for vpn in R.VPN -%}vrf definition VPN{{ vpn["VPN_id"] }}
+ rd {{ vpn["RD"] }}
+ route-target both {{ vpn["RT"] }}
  address-family ipv4
- exit-address-family{% else %}!{% endif %}
+ exit-address-family{% endfor %}
+!{% else %}!{% endif %}
 {% endblock %}
 
 
@@ -22,11 +23,11 @@ vrf definition VPN{{ R.VPN["VPN_id"] }}
 interface {{ intf.name }}
 {% if intf.VRF -%}vrf forwarding VPN{{ intf["VRF"] }}
  ip address {{ intf.ip }} {{ intf.mask }}
- {% if intf.OSPF != {} -%}ip ospf {{ intf.OSPF["PID"] }} area {{ intf.OSPF["area"] }}
- no shutdown{% else %}no shutdown{% endif %}
+ ip ospf {{ R.OSPF["PID"] }} area {{ R.OSPF["area"] }}
+ no shutdown
 !{% else %} ip address {{ intf.ip }} {{ intf.mask }}
- {% if intf.OSPF != {} -%}ip ospf {{ intf.OSPF["PID"] }} area {{ intf.OSPF["area"] }}
- no shutdown{% else %}no shutdown{% endif %}
+ ip ospf {{ R.OSPF["PID"] }} area {{ R.OSPF["area"] }}
+ no shutdown
 !{% endif %}
 {% endfor %}{% endblock %}
 
@@ -34,8 +35,8 @@ interface {{ intf.name }}
 
 
 {% block OSPF %}{% if "OSPF" in R.RP -%}
-router ospf {% for intf in R.itfs -%}{% if intf.link == "L0" -%}{{ intf.OSPF["PID"] }}
- router-id {{ intf.ip }}
+router ospf {% for intf in R.itfs -%}{% if intf.link == "L0" -%}{{ R.OSPF["PID"] }}
+ router-id {{ R.ip }}
  mpls ldp autoconfig{% endif %}{% endfor %}{% else %}!{% endif %}
 !{% endblock %}
 
@@ -63,11 +64,11 @@ router bgp {{ R.BGP["BGP_AS"] }}
 
 
 
-{% block VRF %}{% if R.cl=="PE" -%}address-family ipv4 vrf VPN{{ R.VPN["VPN_id"] }}
- {% for addr in R.VPN["neighbor"] -%}
+{% block VRF %}{% for vpn in R.VPN -%}{% if R.cl=="PE" -%}address-family ipv4 vrf VPN{{ vpn["VPN_id"] }}
+ {% for addr in vpn["neighbor"] -%}
  neighbor {{ addr[0] }} remote-as {{ addr[1] }}
  neighbor {{ addr[0] }} activate{% endfor %}
  exit-address-family
-!{% else %}!{% endif %}{% endblock %}
+!{% else %}!{% endif %}{% endfor %}{% endblock %}
 
 

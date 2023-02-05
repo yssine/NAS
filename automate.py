@@ -37,6 +37,8 @@ class Router:
             self.BGP   = self.input["Routers"][self.name]["BGP"]
         if "VPN" in self.RP:
             self.VPN   = self.input["Routers"][self.name]["VPN"]
+        if "OSPF" in self.RP:
+            self.OSPF   = self.input["Routers"][self.name]["OSPF"]
         self.itfs = self.fill_ints()
 
     def fill_ints(self):
@@ -46,18 +48,17 @@ class Router:
             n = self.input["Links"][interface["link"]][self.name]
             if not "VRF" in interface.keys():
                 interface["VRF"]=False
-            ints.append(Interface(interface["link"],n,interface["IP"],interface["mask_l"],interface["OSPF"],interface["VRF"]))
+            ints.append(Interface(interface["link"],n,interface["IP"],interface["mask_l"],interface["VRF"]))
         return ints
 
 
 class Interface:
-    def __init__(self, link, name, ip, mask_l,OSPF,VRF):
+    def __init__(self, link, name, ip, mask_l,VRF):
         self.link       = link
         self.name       = name
         self.ip         = ip
         self.mask_l     = mask_l
         self.mask       = self.mask(self.mask_l)
-        self.OSPF       = OSPF
         self.VRF        = VRF
 
     def mask(self,l):
@@ -73,7 +74,7 @@ jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader('template'))
 
 
 def auto(RX):
-    f=open('input.json')
+    f=open('inpt.json')
     raw=json.load(f)
     Rx=Router(RX,raw)
     jinja_var = {

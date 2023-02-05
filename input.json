@@ -36,14 +36,12 @@
             "ints":[{
                 "link":"L1",
                 "IP":"192.186.1.1",
-                "mask_l":24,
-                "OSPF":{}
+                "mask_l":24
                     },
                     {
                 "link":"L0",
                 "IP":"1.1.1.1",
-                "mask_l":32,
-                "OSPF":{}
+                "mask_l":32
                     }
         ]
         },
@@ -62,63 +60,49 @@
                     "neighbor":[["4.4.4.4",1]
                     ]
                     },
+            "OSPF":{
+                "PID":42,
+                "area":1
+            },
             "ints":[{
                 "link":"L1",
                 "IP":"192.186.1.2",
                 "mask_l":24,
-                "VRF": 1,
-                "OSPF":{}
+                "VRF": 1
             },
             {
                 "link":"L2",
                 "IP":"192.186.2.1",
-                "mask_l":24,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                        }
+                "mask_l":24
             },
                     {
                 "link":"L0",
                 "IP":"2.2.2.2",
-                "mask_l":32,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                }
+                "mask_l":32
                     }]
         },
         "R3":{
             "name" : "R3",
             "class":"P",
             "RP":["OSPF"],
-
+            "OSPF":{
+                "PID":42,
+                "area":1
+            },
             "ints":[{
                 "link":"L2",
                 "IP":"192.186.2.2",
-                "mask_l":24,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                        }
+                "mask_l":24
             },
             {
                 "link":"L3",
                 "IP":"192.186.3.2",
-                "mask_l":24,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                        }
+                "mask_l":24
             },
                     {
                 "link":"L0",
                 "IP":"3.3.3.3",
-                "mask_l":32,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                        }
+                "mask_l":32
                     }]
         },
         "R4":{
@@ -136,31 +120,26 @@
                 "neighbor":[["192.168.4.1",3]
                 ]
             },
+            "OSPF":{
+                "PID":42,
+                "area":1
+            },
             "ints":[
             {
                 "link":"L3",
                 "IP":"192.186.3.1",
-                "mask_l":24,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                        }
+                "mask_l":24
             },
             {
                 "link":"L4",
                 "IP":"192.186.4.2",
                 "mask_l":24,
-                "VRF": 1,
-                "OSPF":{}
+                "VRF": 1
             },
             {
                 "link":"L0",
                 "IP":"4.4.4.4",
-                "mask_l":32,
-                "OSPF":{
-                    "PID":42,
-                    "area":1
-                        }
+                "mask_l":32
             }]
             },
         "R5":{
@@ -174,14 +153,12 @@
             "ints":[{
                 "link":"L4",
                 "IP":"192.186.4.1",
-                "mask_l":24,
-                "OSPF":{}
+                "mask_l":24
                     },
                     {
                 "link":"L0",
                 "IP":"5.5.5.5",
-                "mask_l":32,
-                "OSPF":{}
+                "mask_l":32
                     }
         ]
         }
