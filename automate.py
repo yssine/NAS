@@ -94,4 +94,4 @@ def auto(RX):
     # s.write(conf)
 
 
-auto("R7")
+auto("R1")

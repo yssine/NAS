@@ -48,18 +48,19 @@ router bgp {{ R.BGP["BGP_AS"] }}
 {% for addr in R.BGP["neighbor"] -%}
  neighbor {{ addr[0] }} remote-as {{ addr[1] }}
  neighbor {{ addr[0] }} update-source Loopback0{% endfor %}
- no auto-summary{% elif R.cl=="CE" %}bgp log-neighbor-changes
+ no auto-summary
+{% elif R.cl=="CE" %}bgp log-neighbor-changes
  redistribute connected
  {% for addr in R.BGP["neighbor"] -%}
- neighbor {{ addr[0] }} remote-as {{ addr[1] }}{% endfor %}{% endif %}
-!{% else %}!{% endif %}{% endblock %}
+ neighbor {{ addr[0] }} remote-as {{ addr[1] }}
+{% endfor %}{% endif %}!{% else %}!{% endif %}{% endblock %}
 
 
 
 {% block vpnv4 %}{% if R.cl=="PE" -%}address-family vpnv4
  {% for addr in R.BGP["neighbor"] -%}
- neighbor {{ addr[0] }} activate{% endfor %}
-!{% else %}!{% endif %}{% endblock %}
+ neighbor {{ addr[0] }} activate
+{% endfor %}!{% else %}!{% endif %}{% endblock %}
 
 
 
@@ -67,8 +68,8 @@ router bgp {{ R.BGP["BGP_AS"] }}
 {% block VRF %}{% for vpn in R.VPN -%}{% if R.cl=="PE" -%}address-family ipv4 vrf VPN{{ vpn["VPN_id"] }}
  {% for addr in vpn["neighbor"] -%}
  neighbor {{ addr[0] }} remote-as {{ addr[1] }}
- neighbor {{ addr[0] }} activate{% endfor %}
- exit-address-family
+ neighbor {{ addr[0] }} activate
+ {% endfor %}exit-address-family
 !
 {% else %}!{% endif %}{% endfor %}{% endblock %}
 
